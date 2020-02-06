@@ -16,19 +16,25 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       lastestpost: [],
+      isFetching: false,
     };
   }
   componentDidMount() {
     this.fetchLastestPost();
   }
 
+  onRefresh() {
+    this.setState({ isFetching: true }, function() {
+      this.fetchLastestPost();
+    });
+  }
+
   async fetchLastestPost() {
     const response = await fetch(
       'https://kriss.io/wp-json/wp/v2/posts?per_page=5',
     );
-
     const post = await response.json();
-    this.setState({lastestpost: post});
+    this.setState({lastestpost: post, isFetching: false});
   }
 
   render() {
@@ -40,6 +46,8 @@ export default class Home extends React.Component {
         </Headline>
         <FlatList
           data={this.state.lastestpost}
+          onRefresh={() => this.onRefresh()}
+          refreshing={this.state.isFetching}
           renderItem={({item}) => (
             <Card
               style={{
