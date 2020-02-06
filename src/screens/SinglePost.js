@@ -23,4 +23,20 @@ export default class SinglePost extends React.Component {
       post: [],
     };
   }
+
+  componentDidMount() {
+    this.fetchPost();
+  }
+  async fetchPost() {
+    let post_id = this.props.navigation.getParam('post_id')
+
+    const response = await fetch(
+      `https://kriss.io/wp-json/wp/v2/posts?_embed&include=${post_id}`
+    );
+    const post = await response.json();
+    this.setState({
+      post: post,
+      isloading: false,
+    });
+  }
 }
