@@ -18,6 +18,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* kriss_appTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* kriss_appTests.m */; };
+		B9CA374D23EC5EC400F38229 /* ios in Resources */ = {isa = PBXBuildFile; fileRef = B9CA374C23EC5EC400F38229 /* ios */; };
 		F3C4B1DB40253417F3D09ACF /* libPods-kriss_app-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3153145A36C61A4CE5F8FE40 /* libPods-kriss_app-tvOS.a */; };
 		F8F104B924C7352448CF0DD9 /* libPods-kriss_appTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE483D2FE5EE8C237B5C25FD /* libPods-kriss_appTests.a */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		30F47C767D471D42FD5021D0 /* Pods-kriss_appTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kriss_appTests.debug.xcconfig"; path = "Target Support Files/Pods-kriss_appTests/Pods-kriss_appTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3153145A36C61A4CE5F8FE40 /* libPods-kriss_app-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kriss_app-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AE7FDBDED536CA97A4D0C88 /* Pods-kriss_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kriss_app.release.xcconfig"; path = "Target Support Files/Pods-kriss_app/Pods-kriss_app.release.xcconfig"; sourceTree = "<group>"; };
+		B9CA374C23EC5EC400F38229 /* ios */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ios; sourceTree = "<group>"; };
 		BE483D2FE5EE8C237B5C25FD /* libPods-kriss_appTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kriss_appTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CB24F21EF498C92DFA8E4B /* Pods-kriss_app-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kriss_app-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-kriss_app-tvOSTests/Pods-kriss_app-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		DB3E8D2AB66CB0E82ADBF4C8 /* Pods-kriss_app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kriss_app.debug.xcconfig"; path = "Target Support Files/Pods-kriss_app/Pods-kriss_app.debug.xcconfig"; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				B9CA374C23EC5EC400F38229 /* ios */,
 				13B07FAE1A68108700A75B9A /* kriss_app */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* kriss_appTests */,
@@ -341,6 +344,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9CA374D23EC5EC400F38229 /* ios in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);

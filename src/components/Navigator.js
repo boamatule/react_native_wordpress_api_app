@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
+import Ionicons from 'react-native-vector-icons';
 import Home from '../screens/Home';
 import Categories from '../screens/Categories';
 import Settings from '../screens/Settings';
@@ -13,6 +14,7 @@ const DashboardTabNavigator = createBottomTabNavigator(
       screen: Home,
       navigationOptions: {
         tabBarLabel: 'Home',
+        tabBarIcon: () => <Ionicons name="md-home" size={30} />,
       },
     },
 
@@ -20,6 +22,7 @@ const DashboardTabNavigator = createBottomTabNavigator(
       screen: Categories,
       navigationOptions: {
         tabBarLabel: 'Categories',
+        tabBarIcon: () => <Ionicons name="md-apps" size={30} />,
       },
     },
 
@@ -27,6 +30,7 @@ const DashboardTabNavigator = createBottomTabNavigator(
       screen: Bookmark,
       navigationOptions: {
         tabBarLabel: 'Bookmark',
+        tabBarIcon: () => <Ionicons name="ios-bookmark" size={30} />,
       },
     },
 
@@ -34,6 +38,7 @@ const DashboardTabNavigator = createBottomTabNavigator(
       screen: Settings,
       navigationOptions: {
         tabBarLabel: 'Settings',
+        tabBarIcon: () => <Ionicons name="md-settings" size={30} />,
       },
     },
   },

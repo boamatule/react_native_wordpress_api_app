@@ -30,10 +30,6 @@ export default class Home extends React.Component {
     });
   }
 
-  // onEndReached={this.handleLoadMore}
-  // onEndReachedThreshold={0.1}
-  // ListFooterComponent={this.renderFooter}
-
   handleLoadMore = () => {
     this.setState(
       {
@@ -58,7 +54,9 @@ export default class Home extends React.Component {
   }
 
   renderFooter = () => {
-    if (this.state.isFetching) {return null;}
+    if (this.state.isFetching) {
+      return null;
+    }
     return (
       <View
         style={{
@@ -82,6 +80,9 @@ export default class Home extends React.Component {
           data={this.state.lastestpost}
           onRefresh={() => this.onRefresh()}
           refreshing={this.state.isFetching}
+          onEndReached={this.handleLoadMore}
+          onEndReachedThreshold={0.1}
+          ListFooterComponent={this.renderFooter}
           renderItem={({item}) => (
             <Card
               style={{
