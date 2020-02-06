@@ -11,6 +11,7 @@ import {
   List,
   Headline,
 } from 'react-native-paper';
+import {TouchableOpacity} from 'react-native';
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -76,38 +77,45 @@ export default class Home extends React.Component {
           {' '}
           <Text> Lastest Post </Text>
         </Headline>
-        <FlatList
-          data={this.state.lastestpost}
-          onRefresh={() => this.onRefresh()}
-          refreshing={this.state.isFetching}
-          onEndReached={this.handleLoadMore}
-          onEndReachedThreshold={0.1}
-          ListFooterComponent={this.renderFooter}
-          renderItem={({item}) => (
-            <Card
-              style={{
-                shadowOffset: {width: 5, height: 5},
-                width: '90%',
-                borderRadius: 12,
-                alignSelf: 'center',
-                marginBottom: 10,
-              }}>
-              <Card.Content>
-                <Title>{item.title.rendered}</Title>
-                <Paragraph>
-                  Published on
-                  {moment(item.date).fromNow()}
-                </Paragraph>
-              </Card.Content>
-              <Card.Cover source={{uri: item.jetpack_featured_media_url}} />
+        <TouchableOpacity
+          onPress={() =>
+            this.props.navigation.navigate('SinglePost', {
+              post_id: item.id,
+            })
+          }>
+          <FlatList
+            data={this.state.lastestpost}
+            onRefresh={() => this.onRefresh()}
+            refreshing={this.state.isFetching}
+            onEndReached={this.handleLoadMore}
+            onEndReachedThreshold={0.1}
+            ListFooterComponent={this.renderFooter}
+            renderItem={({item}) => (
+              <Card
+                style={{
+                  shadowOffset: {width: 5, height: 5},
+                  width: '90%',
+                  borderRadius: 12,
+                  alignSelf: 'center',
+                  marginBottom: 10,
+                }}>
+                <Card.Content>
+                  <Title>{item.title.rendered}</Title>
+                  <Paragraph>
+                    Published on
+                    {moment(item.date).fromNow()}
+                  </Paragraph>
+                </Card.Content>
+                <Card.Cover source={{uri: item.jetpack_featured_media_url}} />
 
-              <Card.Content>
-                <HTMLRender html={item.excerpt.rendered} />
-              </Card.Content>
-            </Card>
-          )}
-          keyExtractor={item => item.id}
-        />
+                <Card.Content>
+                  <HTMLRender html={item.excerpt.rendered} />
+                </Card.Content>
+              </Card>
+            )}
+            keyExtractor={item => item.id}
+          />
+        </TouchableOpacity>
       </View>
     );
   }
