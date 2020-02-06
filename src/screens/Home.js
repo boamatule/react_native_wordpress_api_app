@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {
   Avatar,
   Button,
@@ -9,41 +9,50 @@ import {
   List,
   Headline,
 } from 'react-native-paper';
-class Home extends Component {
+export default class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      lastestpost: []
+    };
+  }
+  componentDidMount() {
+    this.fetchLastestPost();
+  }
+
+  async fetchLastestPost() {
+    const response = await fetch(
+      'https://kriss.io/wp-json/wp/v2/posts?per_page=5',
+    );
+
+    const post = await response.json();
+    this.setState({lastestpost: post});
   }
 
   render() {
     return (
       <View>
-        <Card
-          style={{
-            shadowOffset: {width: 5, height: 5},
-            width: '90%',
-            borderRadius: 12,
-            alignSelf: 'center',
-            marginBottom: 10,
-          }}>
-          <Card.Content>
-            <Title>Blog post</Title>
-            <Card.Cover
+        <Headline style={{marginLeft: 30}}> </Headline>
+        <FlatList
+          data={this.state.lastestpost}
+          renderItem={({item}) => (
+            <Card
               style={{
-                width: 350,
-                height: 190,
+                shadowOffset: {width: 5, height: 5},
+                width: '90%',
+                borderRadius: 12,
                 alignSelf: 'center',
-              }}
-              source={{
-                uri:
-                  'https://images.unsplash.com/photo-1573921470445-8d99c48c879f?ixlib=rb1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-              }}
-            />
-            <Paragraph>just a blog post</Paragraph>
-          </Card.Content>
-        </Card>
+                marginBottom: 10,
+              }}>
+              <Card.Content>
+                <Title>{item.title.rendered}</Title>
+              </Card.Content>
+              <Card.Cover source={{uri: item.jetpack_featured_media_url}} />
+            </Card>
+          )}
+          keyExtractor={item => item.id}
+        />
       </View>
     );
   }
 }
-export default Home;
