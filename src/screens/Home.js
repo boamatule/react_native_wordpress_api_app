@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, FlatList} from 'react-native';
+import HTMLRender from 'react-native-render-html';
+import moment from 'moment';
 import {
   Avatar,
   Button,
@@ -13,7 +15,7 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastestpost: []
+      lastestpost: [],
     };
   }
   componentDidMount() {
@@ -32,7 +34,10 @@ export default class Home extends React.Component {
   render() {
     return (
       <View>
-        <Headline style={{marginLeft: 30}}> </Headline>
+        <Headline style={{marginLeft: 30}}>
+          {' '}
+          <Text> Lastest Post </Text>
+        </Headline>
         <FlatList
           data={this.state.lastestpost}
           renderItem={({item}) => (
@@ -46,8 +51,16 @@ export default class Home extends React.Component {
               }}>
               <Card.Content>
                 <Title>{item.title.rendered}</Title>
+                <Paragraph>
+                  Published on
+                  {moment(item.date).fromNow()}
+                </Paragraph>
               </Card.Content>
               <Card.Cover source={{uri: item.jetpack_featured_media_url}} />
+
+              <Card.Content>
+                <HTMLRender html={item.excerpt.rendered} />
+              </Card.Content>
             </Card>
           )}
           keyExtractor={item => item.id}
