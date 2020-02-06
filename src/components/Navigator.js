@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
-import Ionicons from 'react-native-vector-icons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from '../screens/Home';
 import Categories from '../screens/Categories';
 import Settings from '../screens/Settings';
