@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, ActivityIndicator} from 'react-native';
 import HTMLRender from 'react-native-render-html';
 import moment from 'moment';
 import {
@@ -17,6 +17,7 @@ export default class Home extends React.Component {
     this.state = {
       lastestpost: [],
       isFetching: false,
+      page: 1,
     };
   }
   componentDidMount() {
@@ -24,18 +25,51 @@ export default class Home extends React.Component {
   }
 
   onRefresh() {
-    this.setState({ isFetching: true }, function() {
+    this.setState({isFetching: true}, function() {
       this.fetchLastestPost();
     });
   }
 
+  // onEndReached={this.handleLoadMore}
+  // onEndReachedThreshold={0.1}
+  // ListFooterComponent={this.renderFooter}
+
+  handleLoadMore = () => {
+    this.setState(
+      {
+        page: this.state.page + 1,
+      },
+      () => {
+        this.fetchLastestPost();
+      },
+    );
+  };
+
   async fetchLastestPost() {
+    let page = this.state.page;
     const response = await fetch(
-      'https://kriss.io/wp-json/wp/v2/posts?per_page=5',
+      `https://kriss.io/wp-json/wp/v2/posts?per_page=5&page=${page}`,
     );
     const post = await response.json();
-    this.setState({lastestpost: post, isFetching: false});
+    this.setState({
+      lastestpost: page === 1 ? post : [...this.state.lastestpost, ...post],
+      isFetching: false,
+    });
   }
+
+  renderFooter = () => {
+    if (this.state.isFetching) {return null;}
+    return (
+      <View
+        style={{
+          paddingVertical: 20,
+          borderTopWidth: 1,
+          borderColor: '#CED0CE',
+        }}>
+        <ActivityIndicator animating size="large" />
+      </View>
+    );
+  };
 
   render() {
     return (
