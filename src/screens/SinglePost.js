@@ -49,7 +49,6 @@ export default class SinglePost extends React.Component {
   saveBookMark = async post_id => {
     this.setState({already_bookmark: true});
     let bookmark = [];
-    // bookmark.push(post_id);
     await AsyncStorage.setItem('bookmark').then(token => {
       const res = JSON.parse(token);
       if (res !== null) {
@@ -65,11 +64,21 @@ export default class SinglePost extends React.Component {
       }
     });
   };
+
+  removeBookMark = async post_id => {
+    this.setState({already_bookmark: false});
+    const bookmark = await AsyncStorage.getItem('bookmark').then(token => {
+      const res = JSON.parse(token);
+      return res.filter(e => e !== post_id);
+    });
+    await AsyncStorage.setItem('bookmark', JSON.stringify(bookmark));
+  };
   render() {
     let post = this.state.post;
     if (this.state.isloading) {
       return (
         <View
+          // eslint-disable-next-line react-native/no-inline-styles
           style={{
             paddingVertical: 20,
             borderTopWidth: 1,
