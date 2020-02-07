@@ -31,7 +31,6 @@ export default class Home extends React.Component {
     if (this.state.isFetching) {
       return null;
     }
-
     return (
       <View
         style={{
@@ -89,10 +88,21 @@ export default class Home extends React.Component {
           ListFooterComponent={this.renderFooter}
           renderItem={({item}) => (
             <Card
-              item={item}
-              navigation={this.props.navigation}
-              // textColor={colors.text}
-            />
+              style={{
+                shadowOffset: {width: 5, height: 5},
+                width: '90%',
+                borderRadius: 12,
+                alignSelf: 'center',
+                marginBottom: 10,
+              }}>
+              <Card.Content>
+                <Title>{item.title.rendered}</Title>
+                <Paragraph>
+                  Published on <Text> {moment(item.date).fromNow()}</Text>
+                </Paragraph>
+              </Card.Content>
+              <Card.Cover source={{uri: item.jetpack_featured_media_url}} />
+            </Card>
           )}
           keyExtractor={item => item.id}
         />
@@ -100,16 +110,3 @@ export default class Home extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: Platform.OS === 'ios' ? 30 : 10,
-  },
-  example: {
-    paddingVertical: 10,
-  },
-  title: {
-    margin: 10,
-    fontSize: 20,
-  },
-});
