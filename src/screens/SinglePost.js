@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Avatar, Button, Card, Paragraph, List, Title} from 'react-native-paper';
 import HTML from 'react-native-render-html';
 import {
@@ -18,6 +18,7 @@ export default class SinglePost extends React.Component {
     this.state = {
       isloading: true,
       post: [],
+      already_bookmark: false,
     };
   }
 
@@ -92,6 +93,23 @@ export default class SinglePost extends React.Component {
                 post[0].date,
                 'YYYYMMDD',
               ).fromNow()}`}
+              right={props => {
+                if (this.state.already_bookmark == true) {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => this.removeBookMark(post[0].id)}>
+                      <FontAwesome name="bookmark" size={30} />
+                    </TouchableOpacity>
+                  );
+                } else {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => this.saveBookMark(post[0].id)}>
+                      <FontAwesome name="bookmark" size={30} />
+                    </TouchableOpacity>
+                  );
+                }
+              }}
             />
           </Card.Content>
           <Card.Cover source={{uri: post[0].jetpack_featured_media_url}} />
