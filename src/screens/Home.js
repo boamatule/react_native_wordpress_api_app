@@ -17,6 +17,7 @@ import {
   List,
   Headline,
 } from 'react-native-paper';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -87,22 +88,32 @@ export default class Home extends React.Component {
           onEndReachedThreshold={0.1}
           ListFooterComponent={this.renderFooter}
           renderItem={({item}) => (
-            <Card
-              style={{
-                shadowOffset: {width: 5, height: 5},
-                width: '90%',
-                borderRadius: 12,
-                alignSelf: 'center',
-                marginBottom: 10,
-              }}>
-              <Card.Content>
-                <Title>{item.title.rendered}</Title>
-                <Paragraph>
-                  Published on <Text> {moment(item.date).fromNow()}</Text>
-                </Paragraph>
-              </Card.Content>
-              <Card.Cover source={{uri: item.jetpack_featured_media_url}} />
-            </Card>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate('SinglePost', {
+                  post_id: item.id,
+                })
+              }>
+              <Card
+                style={{
+                  shadowOffset: {width: 5, height: 5},
+                  width: '90%',
+                  borderRadius: 12,
+                  alignSelf: 'center',
+                  marginBottom: 10,
+                }}>
+                <Card.Content>
+                  <Title>{item.title.rendered}</Title>
+                  <Paragraph>
+                    Published<Text>{moment(item.date).fromNow()}</Text>
+                  </Paragraph>
+                </Card.Content>
+                <Card.Cover source={{uri: item.jetpack_featured_media_url}} />
+                <Card.Content>
+                  <HTMLRender html={item.excerpt.rendered} />
+                </Card.Content>
+              </Card>
+            </TouchableOpacity>
           )}
           keyExtractor={item => item.id}
         />
