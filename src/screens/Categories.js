@@ -1,10 +1,13 @@
-import React, {Component} from 'react';
-import {View, Text} from 'react-native';
-class Categories extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {};
-  // }
+import React from 'react';
+import {FlatList, ScrollView, View, TouchableOpacity, Text} from 'react-native';
+export default class Categories extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+      categories: [],
+    };
+  }
 
   render() {
     return (
@@ -14,4 +17,3 @@ class Categories extends Component {
     );
   }
 }
-export default Categories;
