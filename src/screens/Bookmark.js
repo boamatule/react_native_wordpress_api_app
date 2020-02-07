@@ -1,17 +1,24 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {View, TouchableOpacity, FlatList} from 'react-native';
 import {Card, Paragraph, Title, Headline} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
-import HTML from 'react-native-render-html';
+import HTMLRender from 'react-native-render-html';
 import moment from 'moment';
-
-export default class Bookmark extends React.Component {
+import {withNavigationFocus} from 'react-navigation';
+class Bookmark extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       bookmark_post: [],
       isFetching: false,
     };
+  }
+
+  componentDidMount() {
+    const {navigation} = this.props;
+    this.focusListener = navigation.addListener('didFocus', () => {
+      this.fetchBookMark();
+    });
   }
 
   async fetchBookMark() {
@@ -32,10 +39,6 @@ export default class Bookmark extends React.Component {
     const post = await response.json();
     this.setState({bookmark_post: post});
   }
-
-  componentDidMount() {
-    this.fetchBookMark();
-}
 
   render() {
     return (
@@ -67,7 +70,7 @@ export default class Bookmark extends React.Component {
                 <Card.Cover source={{uri: item.jetpack_featured_media_url}} />
                 <Card.Content>
                   <Card.Content>
-                    <HTML html={item.excerpt.rendered} />
+                    <HTMLRender html={item.excerpt.rendered} />
                   </Card.Content>
                 </Card.Content>
               </Card>
@@ -79,3 +82,5 @@ export default class Bookmark extends React.Component {
     );
   }
 }
+
+export default withNavigationFocus(Bookmark);
