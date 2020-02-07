@@ -9,6 +9,18 @@ export default class Categories extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.fetchCategorie();
+  }
+  async fetchCategorie() {
+    this.setState({loading: true});
+    const response = await fetch('https://kriss.io/wpjson/wp/v2/categories');
+    const categories = await response.json();
+    this.setState({
+      categories: categories,,
+    });
+  }
+
   render() {
     return (
       <View>
