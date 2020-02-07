@@ -62,7 +62,7 @@ export default class SinglePost extends React.Component {
       <ScrollView>
         <Card>
           <Card.Content>
-            <Title>{post[0].title.rendered} </Title>
+            <Title>{post[0].title.rendered}</Title>
             <List.Item
               title={`${post[0]._embedded.author[0].name}`}
               description={`${post[0]._embedded.author[0].description}`}
@@ -93,7 +93,6 @@ export default class SinglePost extends React.Component {
                 'YYYYMMDD',
               ).fromNow()}`}
             />
-            <Paragraph />
           </Card.Content>
           <Card.Cover source={{uri: post[0].jetpack_featured_media_url}} />
           <Card.Content>
@@ -106,7 +105,6 @@ export default class SinglePost extends React.Component {
             />
           </Card.Content>
         </Card>
-        )}
       </ScrollView>
     );
   }

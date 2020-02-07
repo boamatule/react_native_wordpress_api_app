@@ -104,9 +104,12 @@ export default class Home extends React.Component {
                 }}>
                 <Card.Content>
                   <Title>{item.title.rendered}</Title>
-                  <Paragraph>
-                    Published<Text>{moment(item.date).fromNow()}</Text>
-                  </Paragraph>
+                  {/* <Paragraph>
+                    <Text> Published {moment(item.date).fromNow()}</Text>
+                  </Paragraph> */}
+                  <List.Item
+                    title={`Published ${moment(item.date).fromNow()}`}
+                  />
                 </Card.Content>
                 <Card.Cover source={{uri: item.jetpack_featured_media_url}} />
                 <Card.Content>
