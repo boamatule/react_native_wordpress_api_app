@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {View, Text, FlatList, ActivityIndicator} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+  StyleSheet,
+} from 'react-native';
 import HTMLRender from 'react-native-render-html';
 import moment from 'moment';
 import {
@@ -11,7 +17,6 @@ import {
   List,
   Headline,
 } from 'react-native-paper';
-import {TouchableOpacity} from 'react-native';
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -21,14 +26,32 @@ export default class Home extends React.Component {
       page: 1,
     };
   }
-  componentDidMount() {
-    this.fetchLastestPost();
-  }
+
+  renderFooter = () => {
+    if (this.state.isFetching) {
+      return null;
+    }
+
+    return (
+      <View
+        style={{
+          paddingVertical: 20,
+          borderTopWidth: 1,
+          borderColor: '#CED0CE',
+        }}>
+        <ActivityIndicator animating size="large" />
+      </View>
+    );
+  };
 
   onRefresh() {
     this.setState({isFetching: true}, function() {
       this.fetchLastestPost();
     });
+  }
+
+  componentDidMount() {
+    this.fetchLastestPost();
   }
 
   handleLoadMore = () => {
@@ -53,70 +76,40 @@ export default class Home extends React.Component {
       isFetching: false,
     });
   }
-
-  renderFooter = () => {
-    if (this.state.isFetching) {
-      return null;
-    }
-    return (
-      <View
-        style={{
-          paddingVertical: 20,
-          borderTopWidth: 1,
-          borderColor: '#CED0CE',
-        }}>
-        <ActivityIndicator animating size="large" />
-      </View>
-    );
-  };
-
   render() {
     return (
       <View>
-        <Headline style={{marginLeft: 30}}>
-          {' '}
-          <Text> Lastest Post </Text>
-        </Headline>
-        <TouchableOpacity
-          onPress={() =>
-            this.props.navigation.navigate('SinglePost', {
-              post_id: item.id,
-            })
-          }>
-          <FlatList
-            data={this.state.lastestpost}
-            onRefresh={() => this.onRefresh()}
-            refreshing={this.state.isFetching}
-            onEndReached={this.handleLoadMore}
-            onEndReachedThreshold={0.1}
-            ListFooterComponent={this.renderFooter}
-            renderItem={({item}) => (
-              <Card
-                style={{
-                  shadowOffset: {width: 5, height: 5},
-                  width: '90%',
-                  borderRadius: 12,
-                  alignSelf: 'center',
-                  marginBottom: 10,
-                }}>
-                <Card.Content>
-                  <Title>{item.title.rendered}</Title>
-                  <Paragraph>
-                    Published on
-                    {moment(item.date).fromNow()}
-                  </Paragraph>
-                </Card.Content>
-                <Card.Cover source={{uri: item.jetpack_featured_media_url}} />
-
-                <Card.Content>
-                  <HTMLRender html={item.excerpt.rendered} />
-                </Card.Content>
-              </Card>
-            )}
-            keyExtractor={item => item.id}
-          />
-        </TouchableOpacity>
+        <Headline style={{marginLeft: 30}}>Lastest Post</Headline>
+        <FlatList
+          data={this.state.lastestpost}
+          onRefresh={() => this.onRefresh()}
+          refreshing={this.state.isFetching}
+          onEndReached={this.handleLoadMore}
+          onEndReachedThreshold={0.1}
+          ListFooterComponent={this.renderFooter}
+          renderItem={({item}) => (
+            <Card
+              item={item}
+              navigation={this.props.navigation}
+              // textColor={colors.text}
+            />
+          )}
+          keyExtractor={item => item.id}
+        />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: Platform.OS === 'ios' ? 30 : 10,
+  },
+  example: {
+    paddingVertical: 10,
+  },
+  title: {
+    margin: 10,
+    fontSize: 20,
+  },
+});

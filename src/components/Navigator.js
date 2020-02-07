@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -8,11 +8,6 @@ import Categories from '../screens/Categories';
 import Settings from '../screens/Settings';
 import Bookmark from '../screens/Bookmark';
 import SinglePost from '../screens/SinglePost';
-
-const StackNavigator = createStackNavigator({
-  DashboardTabNavigator: DashboardTabNavigator,
-  SinglePost: SinglePost,
-});
 
 const DashboardTabNavigator = createBottomTabNavigator(
   {
@@ -58,5 +53,10 @@ const DashboardTabNavigator = createBottomTabNavigator(
     },
   },
 );
+
+const StackNavigator = createStackNavigator({
+  DashboardTabNavigator: DashboardTabNavigator,
+  SinglePost: SinglePost,
+});
 
 export default createAppContainer(StackNavigator);
