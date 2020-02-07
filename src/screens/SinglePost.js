@@ -24,7 +24,9 @@ export default class SinglePost extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchPost();
+    this.fetchPost().then(() => {
+      this.renderBookMark(this.props.navigation.getParam('post_id'));
+    });
   }
   async fetchPost() {
     let post_id = this.props.navigation.getParam('post_id');
@@ -73,6 +75,17 @@ export default class SinglePost extends React.Component {
     });
     await AsyncStorage.setItem('bookmark', JSON.stringify(bookmark));
   };
+
+  renderBookMark = async post_id => {
+    await AsyncStorage.getItem('bookmark').then(token => {
+      const res = JSON.parse(token);
+      let data = res.find(value => value === post_id);
+      return data == null
+        ? this.setState({already_bookmark: false})
+        : this.setState({already_bookmark: true});
+    });
+  };
+
   render() {
     let post = this.state.post;
     if (this.state.isloading) {
