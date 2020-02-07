@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-community/async-storage';
 export default class SinglePost extends React.Component {
   constructor(props) {
     super(props);
@@ -45,6 +46,25 @@ export default class SinglePost extends React.Component {
     });
   };
 
+  saveBookMark = async post_id => {
+    this.setState({already_bookmark: true});
+    let bookmark = [];
+    // bookmark.push(post_id);
+    await AsyncStorage.setItem('bookmark').then(token => {
+      const res = JSON.parse(token);
+      if (res !== null) {
+        let data = res.find(value => value === post_id);
+        if (data == null) {
+          res.push(post_id);
+          AsyncStorage.setItem('bookmark', JSON.stringify(res));
+        }
+      } else {
+        let bookmark = [];
+        bookmark.push(post_id);
+        AsyncStorage.setItem('bookmark', JSON.stringify(bookmark));
+      }
+    });
+  };
   render() {
     let post = this.state.post;
     if (this.state.isloading) {
