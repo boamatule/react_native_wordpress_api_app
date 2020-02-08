@@ -15,7 +15,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 export default class SinglePost extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       isloading: true,
       post: [],
