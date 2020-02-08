@@ -8,7 +8,7 @@ import Categories from '../screens/Categories';
 import Settings from '../screens/Settings';
 import Bookmark from '../screens/Bookmark';
 import SinglePost from '../screens/SinglePost';
-import CategorieList from '../screens/CategoriesList';
+import CategorieList from '../screens/CategorieList';
 
 const DashboardTabNavigator = createBottomTabNavigator(
   {
@@ -58,7 +58,7 @@ const DashboardTabNavigator = createBottomTabNavigator(
 const StackNavigator = createStackNavigator({
   DashboardTabNavigator: DashboardTabNavigator,
   SinglePost: SinglePost,
-  CategorieList : CategorieList,
+  CategorieList: CategorieList,
 });
 
 export default createAppContainer(StackNavigator);

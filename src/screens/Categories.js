@@ -1,5 +1,11 @@
 import React from 'react';
-import {FlatList, ScrollView, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+  View,
+  SafeAreaView,
+} from 'react-native';
 import {Card, Title} from 'react-native-paper';
 
 export default class Categories extends React.Component {
@@ -26,27 +32,25 @@ export default class Categories extends React.Component {
   render() {
     return (
       <ScrollView>
-        <View>
-          <FlatList
-            data={this.state.categories}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                onPress={() =>
-                  this.props.navigation.navigate('CategorieList', {
-                    categorie_id: item.id,
-                    categorie_name: item.name,
-                  })
-                }>
-                <Card>
-                  <Card.Content>
-                    <Title>{item.name}</Title>
-                  </Card.Content>
-                </Card>
-              </TouchableOpacity>
-            )}
-            keyExtractor={(item, index) => index}
-          />
-        </View>
+        <FlatList
+          data={this.state.categories}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate('CategorieList', {
+                  categorie_id: item.id,
+                  categorie_name: item.name,
+                })
+              }>
+              <Card>
+                <Card.Content>
+                  <Title>{item.name}</Title>
+                </Card.Content>
+              </Card>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item, index) => index}
+        />
       </ScrollView>
     );
   }

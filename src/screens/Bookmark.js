@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View, TouchableOpacity, FlatList} from 'react-native';
 import {Card, Paragraph, Title, Headline} from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
