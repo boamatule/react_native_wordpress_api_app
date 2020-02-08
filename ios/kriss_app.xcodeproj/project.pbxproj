@@ -18,6 +18,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* kriss_appTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* kriss_appTests.m */; };
+		B95E4E4B23EE50750012BE73 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B95E4E4A23EE50750012BE73 /* GoogleService-Info.plist */; };
 		F3C4B1DB40253417F3D09ACF /* libPods-kriss_app-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3153145A36C61A4CE5F8FE40 /* libPods-kriss_app-tvOS.a */; };
 		F8F104B924C7352448CF0DD9 /* libPods-kriss_appTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE483D2FE5EE8C237B5C25FD /* libPods-kriss_appTests.a */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		30F47C767D471D42FD5021D0 /* Pods-kriss_appTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kriss_appTests.debug.xcconfig"; path = "Target Support Files/Pods-kriss_appTests/Pods-kriss_appTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3153145A36C61A4CE5F8FE40 /* libPods-kriss_app-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kriss_app-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AE7FDBDED536CA97A4D0C88 /* Pods-kriss_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kriss_app.release.xcconfig"; path = "Target Support Files/Pods-kriss_app/Pods-kriss_app.release.xcconfig"; sourceTree = "<group>"; };
+		B95E4E4A23EE50750012BE73 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE483D2FE5EE8C237B5C25FD /* libPods-kriss_appTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kriss_appTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CB24F21EF498C92DFA8E4B /* Pods-kriss_app-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kriss_app-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-kriss_app-tvOSTests/Pods-kriss_app-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		DB3E8D2AB66CB0E82ADBF4C8 /* Pods-kriss_app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kriss_app.debug.xcconfig"; path = "Target Support Files/Pods-kriss_app/Pods-kriss_app.debug.xcconfig"; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				B95E4E4A23EE50750012BE73 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -342,6 +345,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				B95E4E4B23EE50750012BE73 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
