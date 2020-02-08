@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Avatar, Button, Card, Paragraph, List, Title} from 'react-native-paper';
 import HTML from 'react-native-render-html';
 import {
