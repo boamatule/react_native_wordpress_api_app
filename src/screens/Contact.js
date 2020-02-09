@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
   View,
   StyleSheet,
@@ -18,4 +18,62 @@ export default class Contact extends Component {
       submit: false,
     };
   }
+
+  render() {
+    const Form = t.form.Form;
+    const options = {
+      fields: {
+        message: {
+          multiline: true,
+          stylesheet: {
+            ...Form.stylesheet,
+              textbox: {...Form.stylesheet.textbox,
+                normal: {
+                  ...Form.stylesheet.textbox.normal,
+                    height: 150,
+                  },
+                  error: {
+                    ...Form.stylesheet.textbox.error,
+                      height: 150,
+            },
+          },
+        },
+       },
+      },
+    };
+    const ContactForm = t.struct({
+      email: t.String,
+      name: t.String,
+      message: t.String,
+    });
+    return (
+      <View style={styles.container}>
+        <Form type={ContactForm} options={options} />
+      </View>
+    );
+  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    marginTop: 50,
+    padding: 20,
+    backgroundColor: '#ffffff',
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center',
+  },
+  button: {
+    height: 36,
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+  },
+});
