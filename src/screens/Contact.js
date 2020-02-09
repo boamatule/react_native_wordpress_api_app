@@ -19,6 +19,23 @@ export default class Contact extends Component {
     };
   }
 
+  handleSubmit = async () => {
+    this.setState({submit: true});
+    const value = this._form.getValue();
+    console.log(value);
+
+    firebase
+      .database()
+      .ref('contact/')
+      .push(value)
+      .then(res => {
+        Alert.alert('thank for reaching me');;
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+
   render() {
     const Form = t.form.Form;
     const options = {
@@ -27,18 +44,19 @@ export default class Contact extends Component {
           multiline: true,
           stylesheet: {
             ...Form.stylesheet,
-              textbox: {...Form.stylesheet.textbox,
-                normal: {
-                  ...Form.stylesheet.textbox.normal,
-                    height: 150,
-                  },
-                  error: {
-                    ...Form.stylesheet.textbox.error,
-                      height: 150,
+            textbox: {
+              ...Form.stylesheet.textbox,
+              normal: {
+                ...Form.stylesheet.textbox.normal,
+                height: 150,
+              },
+              error: {
+                ...Form.stylesheet.textbox.error,
+                height: 150,
+              },
             },
           },
         },
-       },
       },
     };
     const ContactForm = t.struct({
@@ -48,7 +66,20 @@ export default class Contact extends Component {
     });
     return (
       <View style={styles.container}>
-        <Form type={ContactForm} options={options} />
+        <Form
+          type={ContactForm}
+          ref={c => (this._form = c)}
+          options={options}
+        />
+        <View>
+          <TouchableOpacity
+            ref="form"
+            style={styles.button}
+            onPress={this.handleSubmit}
+            underlayColor="#99d9f4">
+            <Text style={styles.buttonText}>Save</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
