@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {List, Icon} from 'react-native-paper';
 class Settings extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +10,13 @@ class Settings extends Component {
   render() {
     return (
       <View>
-        <Text> Settings </Text>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Contact')}>
+          <List.Item
+            title="Contact US"
+            left={() => <List.Icon icon="chevron-right" />}
+          />
+        </TouchableOpacity>
       </View>
     );
   }
