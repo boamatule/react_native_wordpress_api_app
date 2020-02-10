@@ -89,7 +89,7 @@ const ContactForm = t.struct({
         <View style={{flex:1,justifyContent:'center',alignItems: 'center',}}>
           <Image
           style={{width: 100, height: 100}}
-          // source={require('../assets/img')}
+          source={require('../assets/block.png')}
           />
         <Text style={{fontSize:25}}>You can submit again in next hour</Text>
       </View>
