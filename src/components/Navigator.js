@@ -63,4 +63,7 @@ const StackNavigator = createStackNavigator({
   Contact: Contact,
 });
 
-export default createAppContainer(StackNavigator);
+const Navigation = createAppContainer(StackNavigator);
+export default () => <Navigation theme={'dark'} />
+
+// export default createAppContainer(StackNavigator);
