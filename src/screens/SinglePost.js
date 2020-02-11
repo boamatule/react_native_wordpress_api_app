@@ -1,5 +1,5 @@
 import React from 'react';
-import {Avatar, Button, Card, Paragraph, List, Title} from 'react-native-paper';
+import {Avatar, Button, Card, Paragraph, List, Title, withTheme,} from 'react-native-paper';
 import HTML from 'react-native-render-html';
 import {
   View,
@@ -8,11 +8,12 @@ import {
   Dimensions,
   Share,
   TouchableOpacity,
+  StyleSheet,
 } from 'react-native';
 import moment from 'moment';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
-export default class SinglePost extends React.Component {
+class SinglePost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,16 +41,9 @@ export default class SinglePost extends React.Component {
     });
   }
 
-  onShare = async (title, uri) => {
-    Share.share({
-      title: title,
-      url: uri,
-    });
-  };
-
   saveBookMark = async post_id => {
     this.setState({already_bookmark: true});
-    let bookmark = [];
+    // let bookmark = [];
     await AsyncStorage.setItem('bookmark').then(token => {
       const res = JSON.parse(token);
       if (res !== null) {
@@ -66,15 +60,6 @@ export default class SinglePost extends React.Component {
     });
   };
 
-  removeBookMark = async post_id => {
-    this.setState({already_bookmark: false});
-    const bookmark = await AsyncStorage.getItem('bookmark').then(token => {
-      const res = JSON.parse(token);
-      return res.filter(e => e !== post_id);
-    });
-    await AsyncStorage.setItem('bookmark', JSON.stringify(bookmark));
-  };
-
   renderBookMark = async post_id => {
     await AsyncStorage.getItem('bookmark').then(token => {
       const res = JSON.parse(token);
@@ -85,86 +70,134 @@ export default class SinglePost extends React.Component {
     });
   };
 
+  removeBookMark = async post_id => {
+    this.setState({already_bookmark: false});
+    const bookmark = await AsyncStorage.getItem('bookmark').then(token => {
+      const res = JSON.parse(token);
+      return res.filter(e => e !== post_id);
+    });
+    await AsyncStorage.setItem('bookmark', JSON.stringify(bookmark));
+  };
+
+  onShare = async (title, uri) => {
+    Share.share({
+      title: title,
+      url: uri,
+    });
+  };
+
   render() {
     let post = this.state.post;
-    if (this.state.isloading) {
-      return (
-        <View
-          // eslint-disable-next-line react-native/no-inline-styles
-          style={{
-            paddingVertical: 20,
-            borderTopWidth: 1,
-            borderColor: '#CED0CE',
-          }}>
-          <ActivityIndicator animating size="large" />
-        </View>
-      );
-    }
+    const {colors} = this.props.theme;
     return (
       <ScrollView>
-        <Card>
-          <Card.Content>
-            <Title>{post[0].title.rendered}</Title>
-            <List.Item
-              title={`${post[0]._embedded.author[0].name}`}
-              description={`${post[0]._embedded.author[0].description}`}
-              left={props => {
-                return (
-                  <Avatar.Image
-                    size={55}
-                    source={{
-                      uri: `${post[0]._embedded.author[0].avatar_urls[96]}`,
-                    }}
-                  />
-                );
-              }}
-              right={props => {
-                return (
-                  <TouchableOpacity
-                    onPress={() =>
-                      this.onShare(post[0].title.rendered, post[0].link)
-                    }>
-                    <FontAwesome name="share" size={30} />
-                  </TouchableOpacity>
-                );
-              }}
-            />
-            <List.Item
-              title={`Published on ${moment(
-                post[0].date,
-                'YYYYMMDD',
-              ).fromNow()}`}
-              right={props => {
-                if (this.state.already_bookmark == true) {
+        {this.state.isloading ? (
+          <View
+            style={{
+              paddingVertical: 20,
+              borderTopWidth: 1,
+              borderColor: '#CED0CE',
+            }}>
+            <ActivityIndicator animating size="large" />
+          </View>
+        ) : (
+          <Card style={styles.card}>
+            <Card.Content>
+              <Title>{post[0].title.rendered} </Title>
+              <List.Item
+                title={`${
+                  this.state.offline ? '' : post[0]._embedded.author[0].name
+                }`}
+                description={`${
+                  this.state.offline
+                    ? ''
+                    : post[0]._embedded.author[0].description
+                }`}
+                left={props => {
+                  return (
+                    <Avatar.Image
+                      {...props}
+                      size={55}
+                      source={{
+                        uri: `${
+                          this.state.offline
+                            ? ''
+                            : post[0]._embedded.author[0].avatar_urls[96]
+                        }`,
+                      }}
+                    />
+                  );
+                }}
+                right={props => {
                   return (
                     <TouchableOpacity
-                      onPress={() => this.removeBookMark(post[0].id)}>
-                      <FontAwesome name="bookmark" size={30} />
+                      onPress={() =>
+                        this.onShare(post[0].title.rendered, post[0].link)
+                      }>
+                      <FontAwesome name="share" color={colors.text} size={30} />
                     </TouchableOpacity>
                   );
-                } else {
-                  return (
-                    <TouchableOpacity
-                      onPress={() => this.saveBookMark(post[0].id)}>
-                      <FontAwesome name="bookmark" size={30} />
-                    </TouchableOpacity>
-                  );
-                }
-              }}
-            />
-          </Card.Content>
-          <Card.Cover source={{uri: post[0].jetpack_featured_media_url}} />
-          <Card.Content>
-            <HTML
-              html={post[0].content.rendered}
-              imagesInitialDimensions={{
-                width: Dimensions.get('window').width,
-                height: Dimensions.get('window').width * 2,
-              }}
-            />
-          </Card.Content>
-        </Card>
+                }}
+              />
+              <List.Item
+                title={`Published on ${moment(
+                  post[0].date,
+                  'YYYYMMDD',
+                ).fromNow()}`}
+                right={props => {
+                  if (this.state.already_bookmark == false) {
+                    return (
+                      <TouchableOpacity
+                        onPress={() => this.saveBookMark(post[0].id)}>
+                        <FontAwesome name="bookmark" size={30} color={colors.text}/>
+                      </TouchableOpacity>
+                    );
+                  } else {
+                    return (
+                      <TouchableOpacity
+                        onPress={() => this.removeBookMark(post[0].id)}>
+                        <FontAwesome name="bookmark-o" size={30} color={colors.text}/>
+                      </TouchableOpacity>
+                    );
+                  }
+                }}
+              />
+              <Paragraph />
+            </Card.Content>
+            <Card.Cover source={{uri: post[0].jetpack_featured_media_url}} />
+            <Card.Content>
+              <HTML
+                html={post[0].content.rendered}
+                imagesInitialDimensions={{
+                  width: Dimensions.get('window').width,
+                  height: Dimensions.get('window').width * 2,
+                }}
+                tagsStyles={{
+                  p: {color: colors.text},
+                  h1: {color: colors.text},
+                  h2: {color: colors.text},
+                  h3: {color: colors.text},
+                  pre: {color: colors.accent},
+                }}
+              />
+            </Card.Content>
+          </Card>
+        )}
       </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  content: {
+    padding: 4,
+  },
+  card: {
+    margin: 4,
+  },
+});
+
+export default withTheme(SinglePost);
