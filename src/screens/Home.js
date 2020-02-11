@@ -14,12 +14,11 @@ import {
   Title,
   Paragraph,
   List,
-  Card,
   Headline,
   withTheme
 } from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-// import Card from '../components/Card';
+import Card from '../components/Card';
  class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -79,49 +78,26 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
     });
   }
   render() {
+    const {colors} = this.props.theme;
     return (
       <View>
         <Headline style={{marginLeft: 30}}>Lastest Post</Headline>
-        <FlatList
-          data={this.state.lastestpost}
-          onRefresh={() => this.onRefresh()}
-          refreshing={this.state.isFetching}
-          onEndReached={this.handleLoadMore}
-          onEndReachedThreshold={0.1}
-          ListFooterComponent={this.renderFooter}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() =>
-                this.props.navigation.navigate('SinglePost', {
-                  post_id: item.id,
-                })
-              }>
-              <Card
-                style={{
-                  shadowOffset: {width: 5, height: 5},
-                  width: '90%',
-                  borderRadius: 12,
-                  alignSelf: 'center',
-                  marginBottom: 10,
-                }}>
-                <Card.Content>
-                  <Title>{item.title.rendered}</Title>
-                  {/* <Paragraph>
-                    <Text> Published {moment(item.date).fromNow()}</Text>
-                  </Paragraph> */}
-                  <List.Item
-                    title={`Published ${moment(item.date).fromNow()}`}
-                  />
-                </Card.Content>
-                <Card.Cover source={{uri: item.jetpack_featured_media_url}} />
-                <Card.Content>
-                  <HTMLRender html={item.excerpt.rendered} />
-                </Card.Content>
-              </Card>
-            </TouchableOpacity>
-          )}
-          keyExtractor={item => item.id}
-        />
+          <FlatList
+            data={this.state.lastestpost}
+            onRefresh={() => this.onRefresh()}
+            refreshing={this.state.isFetching}
+            onEndReached={this.handleLoadMore}
+            onEndReachedThreshold={0.1}
+            ListFooterComponent={this.renderFooter}
+            renderItem={({item}) => (
+                <Card
+                item={item}
+                navigation={this.props.navigation}
+                textColor={colors.text}
+                />
+              )}
+            keyExtractor={item => item.id}
+          />
       </View>
     );
   }
