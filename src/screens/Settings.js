@@ -1,24 +1,33 @@
-import React, {Component} from 'react';
+import React, {useContext} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {List, Icon} from 'react-native-paper';
-class Settings extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+import {List, Switch} from 'react-native-paper';
+import render from 'dom-serializer';
 
-  render() {
+const Setting = ({navigation}) => {
+
+  // render() {
+  //   const {colors} = this.props.theme;
     return (
-      <View>
+      <List.Section>
+        <List.Item
+        title="Dark Mode"
+        left={() => <List.Icon icon="brightness-4" />}
+        right={() => <Switch/>}
+        />
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Contact')}>
-          <List.Item
-            title="Contact US"
-            left={() => <List.Icon icon="chevron-right" />}
-          />
+        onPress={() => {navigation.navigate('Contact')}}>
+        <List.Item
+        title="Contact Us"
+        left={() => <List.Icon icon="chevron-right" />}
+        />
         </TouchableOpacity>
-      </View>
-    );
-  }
-}
-export default Settings;
+        </List.Section>
+      );
+    };
+
+  // }
+  
+  Setting.navigationOptions = {
+    title: 'Setting',
+    };
+ export default Setting;
