@@ -3,11 +3,13 @@ import {View, FlatList, TouchableOpacity} from 'react-native';
 import {Card, Title, Paragraph} from 'react-native-paper';
 import moment from 'moment';
 import HTML from 'react-native-render-html';
+// import Card from '../components/Card';
 
 export default class CategorieList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false,
       posts: [],
     };
   }
@@ -37,18 +39,11 @@ export default class CategorieList extends React.Component {
                   post_id: item.id,
                 })
               }>
-              <Card>
-                <Card.Content>
-                  <Title>{item.title.rendered}</Title>
-                  <Paragraph>
-                    Published on {moment(item.date, 'YYYYMMDD').fromNow()}
-                  </Paragraph>
-                </Card.Content>
-                <Card.Cover source={{uri: item.jetpack_featured_media_url}} />
-                <Card.Content>
-                  <HTML html={item.excerpt.rendered} />
-                </Card.Content>
-              </Card>
+              <Card
+                item={item}
+                navigation={this.props.navigation}
+                // textColor={colors.text}
+              />
             </TouchableOpacity>
           )}
           keyExtractor={item => item.id}

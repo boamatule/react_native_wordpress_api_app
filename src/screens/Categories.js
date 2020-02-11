@@ -16,7 +16,7 @@ export default class Categories extends React.Component {
   }
   async fetchCategorie() {
     this.setState({loading: true});
-    const response = await fetch('https://kriss.io/wpjson/wp/v2/categories');
+    const response = await fetch(`https://kriss.io/wp-json/wp/v2/categories`);
     const categories = await response.json();
     this.setState({
       categories: categories,
@@ -25,7 +25,7 @@ export default class Categories extends React.Component {
 
   render() {
     return (
-      // <ScrollView>
+      <ScrollView>
       <FlatList
         data={this.state.categories}
         renderItem={({item}) => (
@@ -45,7 +45,7 @@ export default class Categories extends React.Component {
         )}
         keyExtractor={(item, index) => index}
       />
-      // </ScrollView>
+     </ScrollView>
     );
   }
 }

@@ -11,14 +11,16 @@ import moment from 'moment';
 import {
   Avatar,
   Button,
-  Card,
   Title,
   Paragraph,
   List,
+  Card,
   Headline,
+  withTheme
 } from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-export default class Home extends React.Component {
+// import Card from '../components/Card';
+ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -124,3 +126,5 @@ export default class Home extends React.Component {
     );
   }
 }
+
+export default withTheme(Home);
