@@ -10,6 +10,10 @@ import Bookmark from '../screens/Bookmark';
 import SinglePost from '../screens/SinglePost';
 import CategorieList from '../screens/CategorieList';
 import Contact from '../screens/Contact';
+import { Provider as PaperProvider,
+  DarkTheme,
+  DefaultTheme, 
+ } from 'react-native-paper';
 
 const DashboardTabNavigator = createBottomTabNavigator(
   {
@@ -64,6 +68,15 @@ const StackNavigator = createStackNavigator({
 });
 
 const Navigation = createAppContainer(StackNavigator);
-export default () => <Navigation theme={'dark'} />
+// export default () => <Navigation theme={'dark'} />
+
+export default () => {
+  return (
+  <PaperProvider theme={DarkTheme}>
+    <Navigation theme={'dark'} />
+  </PaperProvider>
+  );
+ }
+
 
 // export default createAppContainer(StackNavigator);
