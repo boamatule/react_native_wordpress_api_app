@@ -1,9 +1,10 @@
 import React, {useContext} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {List, Switch} from 'react-native-paper';
-import render from 'dom-serializer';
+import {ThemeContext} from '../components/ThemeManager';
 
 const Setting = ({navigation}) => {
+  const {toggleTheme, theme} = useContext(ThemeContext);
 
   // render() {
   //   const {colors} = this.props.theme;
@@ -12,7 +13,7 @@ const Setting = ({navigation}) => {
         <List.Item
         title="Dark Mode"
         left={() => <List.Icon icon="brightness-4" />}
-        right={() => <Switch/>}
+        right={() => <Switch value={theme} onValueChange={toggleTheme}/>}
         />
         <TouchableOpacity
         onPress={() => {navigation.navigate('Contact')}}>

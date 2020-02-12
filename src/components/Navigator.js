@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useContext } from 'react';
+import {ThemeContext} from './ThemeManager';
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
@@ -65,15 +66,16 @@ const StackNavigator = createStackNavigator({
 });
 
 const Navigation = createAppContainer(StackNavigator);
-// export default () => <Navigation theme={'dark'} />
 
 export default () => {
+  const {theme} = useContext(ThemeContext);
+  let paper_theme = theme ? DarkTheme : DefaultTheme;
+  let nav_theme = theme ? 'dark' : 'light';
+  
   return (
-  <PaperProvider theme={DarkTheme}>
-    <Navigation theme={'dark'} />
-  </PaperProvider>
-  );
- }
+    <PaperProvider theme={paper_theme}>
+    <Navigation theme={nav_theme} />
+    </PaperProvider>
+    );
+   };
 
-
-// export default createAppContainer(StackNavigator);
