@@ -41,7 +41,7 @@ export default class NetworkProvider extends React.Component {
 
 const styles = StyleSheet.create({
   offLine: {
-    marginRight: 15,
-    flexDirection: 'now',
+  marginRight: 15,
+  flexDirection: 'row',
   },
-});
+ });
