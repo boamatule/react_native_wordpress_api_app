@@ -12,6 +12,7 @@ import SinglePost from '../screens/SinglePost';
 import CategorieList from '../screens/CategorieList';
 import Contact from '../screens/Contact';
 import { Provider as PaperProvider, DarkTheme, DefaultTheme} from 'react-native-paper';
+import {eventEmitter} from 'react-native-dark-mode';
 
 const DashboardTabNavigator = createBottomTabNavigator(
   {
@@ -71,7 +72,7 @@ export default () => {
   const {theme} = useContext(ThemeContext);
   let paper_theme = theme ? DarkTheme : DefaultTheme;
   let nav_theme = theme ? 'dark' : 'light';
-  
+
   return (
     <PaperProvider theme={paper_theme}>
     <Navigation theme={nav_theme} />

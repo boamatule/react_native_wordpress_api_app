@@ -1,9 +1,16 @@
 import React, {createContext, useState} from 'react';
-
 export const ThemeContext = createContext();
+import {eventEmitter} from 'react-native-dark-mode';
 
 export const ThemeManager = ({children}) => {
   const [theme, setTheme] = useState(false);
+  eventEmitter.on('currentModeChanged', newMode => {
+    if (newMode == 'dark') {
+      setTheme(true); 
+    } else {
+      setTheme(false);
+    }
+  });
   
   const toggleTheme = value => {
   if (value === true) {
@@ -13,9 +20,9 @@ export const ThemeManager = ({children}) => {
   }
 };
 
-  return (
-    <ThemeContext.Provider value={{theme, toggleTheme}}>
-    {children}
-    </ThemeContext.Provider>
-    );
-  };
+return (
+  <ThemeContext.Provider value={{theme, toggleTheme}}>
+  {children}
+  </ThemeContext.Provider>
+  );
+};
