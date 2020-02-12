@@ -13,6 +13,7 @@ import CategorieList from '../screens/CategorieList';
 import Contact from '../screens/Contact';
 import { Provider as PaperProvider, DarkTheme, DefaultTheme} from 'react-native-paper';
 import {eventEmitter} from 'react-native-dark-mode';
+import NetworkStatus from './NetworkStatus';
 
 const DashboardTabNavigator = createBottomTabNavigator(
   {
@@ -54,6 +55,7 @@ const DashboardTabNavigator = createBottomTabNavigator(
 
       return {
         headerTitle: routeName,
+        headerRight: <NetworkStatus />,
       };
     },
   },

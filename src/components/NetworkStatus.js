@@ -1,8 +1,7 @@
-import React from 'React';
+import React from 'react';
 import {List} from 'react-native-paper';
 import NetInfo from '@react-native-community/netinfo';
-import {Text, StyleSheet} from 'react-native';
-import console = require('console');
+import {Text, StyleSheet, Platform} from 'react-native';
 
 export default class NetworkProvider extends React.Component {
   state = {
@@ -26,4 +25,23 @@ export default class NetworkProvider extends React.Component {
     this.setState({isConnected});
     console.log(this.state.isConnected);
   };
+
+  render() {
+    const iconPrefix = Platform.OS === 'ios' ? 'ios' : 'md';
+    return this.state.isConnected ? (
+      <Text></Text>
+    ) : ( 
+      <List.Item
+      title="Offline mode"
+      left={() => <List.Icon icon="airplane-off" />}
+      />
+    );
+  }
 }
+
+const styles = StyleSheet.create({
+  offLine: {
+    marginRight: 15,
+    flexDirection: 'now',
+  },
+});
