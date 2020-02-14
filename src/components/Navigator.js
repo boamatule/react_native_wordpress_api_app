@@ -1,24 +1,30 @@
-import React, {useContext } from 'react';
-import {ThemeContext} from './ThemeManager';
+import React, {useContext, useState} from 'react';
+import {Button, StatusBar, Text, SafeAreaView} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from '../screens/Home';
 import Categories from '../screens/Categories';
-import Settings from '../screens/Settings';
-import Bookmark from '../screens/Bookmark';
+import Setting from '../screens/Settings';
 import SinglePost from '../screens/SinglePost';
 import CategorieList from '../screens/CategorieList';
 import Contact from '../screens/Contact';
-import { Provider as PaperProvider, DarkTheme, DefaultTheme} from 'react-native-paper';
-import {eventEmitter} from 'react-native-dark-mode';
+import Bookmark from '../screens/Bookmark';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useDarkMode} from 'react-native-dark-mode';
 import NetworkStatus from './NetworkStatus';
+import {ThemeContext} from './ThemeManager';
+import {
+  Provider as PaperProvider,
+  DarkTheme,
+  DefaultTheme,
+} from 'react-native-paper';
 
 const DashboardTabNavigator = createBottomTabNavigator(
   {
     HomePage: {
       screen: Home,
+
       navigationOptions: {
         tabBarLabel: 'Home',
         tabBarIcon: () => <Ionicons name="md-home" size={30} />,
@@ -27,25 +33,27 @@ const DashboardTabNavigator = createBottomTabNavigator(
 
     Categories: {
       screen: Categories,
+
       navigationOptions: {
         tabBarLabel: 'Categories',
         tabBarIcon: () => <Ionicons name="md-apps" size={30} />,
       },
     },
-
     Bookmark: {
       screen: Bookmark,
       navigationOptions: {
-        tabBarLabel: 'Bookmark',
+        tabBarLabel: 'BookMark',
         tabBarIcon: () => <Ionicons name="ios-bookmark" size={30} />,
       },
     },
 
-    Settings: {
-      screen: Settings,
-      navigationOptions: {
-        tabBarLabel: 'Settings',
-        tabBarIcon: () => <Ionicons name="md-settings" size={30} />,
+    Setting: {
+      screen: Setting,
+      navigationOptions: ({navigation, screenProps}) => {
+        return {
+          tabBarLabel: 'Setting',
+          tabBarIcon: () => <Ionicons name="md-settings" size={30} />,
+        };
       },
     },
   },
@@ -70,15 +78,16 @@ const StackNavigator = createStackNavigator({
 
 const Navigation = createAppContainer(StackNavigator);
 
+// eslint-disable-next-line react/display-name
 export default () => {
+  const isDarkMode = useDarkMode();
   const {theme} = useContext(ThemeContext);
-  let paper_theme = theme ? DarkTheme : DefaultTheme;
+  let paper_them = theme ? DarkTheme : DefaultTheme;
   let nav_theme = theme ? 'dark' : 'light';
 
   return (
-    <PaperProvider theme={paper_theme}>
-    <Navigation theme={nav_theme} />
+    <PaperProvider theme={paper_them}>
+      <Navigation theme={nav_theme} />
     </PaperProvider>
-    );
-   };
-
+  );
+};

@@ -9,9 +9,9 @@ export default ({item, navigation, textColor}) => {
   return (
     <TouchableOpacity
       onPress={() =>
-      navigation.navigate('SinglePost', {
-        post_id: item.id,
-      })
+        navigation.navigate('SinglePost', {
+          post_id: item.id,
+        })
       }>
       <Card
         style={[
@@ -31,8 +31,8 @@ export default ({item, navigation, textColor}) => {
         <Card.Content>
           <Card.Content>
             <HTMLRender
-            html={item.excerpt.rendered}
-            tagsStyles={{p: {color: textColor}}}
+              html={item.excerpt.rendered}
+              tagsStyles={{p: {color: textColor}}}
             />
           </Card.Content>
         </Card.Content>

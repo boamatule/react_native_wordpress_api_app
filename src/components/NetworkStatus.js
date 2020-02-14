@@ -1,12 +1,14 @@
 import React from 'react';
 import {List} from 'react-native-paper';
 import NetInfo from '@react-native-community/netinfo';
-import {Text, StyleSheet, Platform} from 'react-native';
-
+import {Text, StyleSheet} from 'react-native';
 export default class NetworkProvider extends React.Component {
-  state = {
-    isConnected: true,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isConnected: true,
+    };
+  }
 
   componentDidMount() {
     NetInfo.isConnected.addEventListener(
@@ -21,6 +23,7 @@ export default class NetworkProvider extends React.Component {
       this.handleConnectivityChange,
     );
   }
+
   handleConnectivityChange = isConnected => {
     this.setState({isConnected});
     console.log(this.state.isConnected);
@@ -30,10 +33,10 @@ export default class NetworkProvider extends React.Component {
     const iconPrefix = Platform.OS === 'ios' ? 'ios' : 'md';
     return this.state.isConnected ? (
       <Text></Text>
-    ) : ( 
+    ) : (
       <List.Item
-      title="Offline mode"
-      left={() => <List.Icon icon="airplane-off" />}
+        title="Offline mode"
+        left={() => <List.Icon icon="airplane-off" />}
       />
     );
   }
@@ -41,7 +44,7 @@ export default class NetworkProvider extends React.Component {
 
 const styles = StyleSheet.create({
   offLine: {
-  marginRight: 15,
-  flexDirection: 'row',
+    marginRight: 15,
+    flexDirection: 'row',
   },
- });
+});
