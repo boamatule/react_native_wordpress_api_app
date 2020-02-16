@@ -42,7 +42,7 @@ export default class CategorieList extends React.Component {
               <Card
                 item={item}
                 navigation={this.props.navigation}
-                // textColor={colors.text}
+                textColor={colors.text}
               />
             </TouchableOpacity>
           )}

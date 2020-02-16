@@ -14,6 +14,7 @@ import {
   Title,
   Paragraph,
   List,
+  // Card,
   Headline,
   withTheme
 } from 'react-native-paper';
