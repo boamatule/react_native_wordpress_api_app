@@ -19,6 +19,10 @@ import {
 } from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Card from '../components/Card';
+import NetInfo from '@react-native-community/netinfo';
+import AsyncStorage from '@react-native-community/async-storage';
+const cacheKey = 'CacheData';
+
  class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -26,13 +30,13 @@ import Card from '../components/Card';
       lastestpost: [],
       isFetching: false,
       page: 1,
+      offline: false,
     };
   }
 
   renderFooter = () => {
-    if (this.state.isFetching) {
-      return null;
-    }
+    if (this.state.isFetching) return null;
+    
     return (
       <View
         style={{
@@ -53,6 +57,22 @@ import Card from '../components/Card';
 
   componentDidMount() {
     this.fetchLastestPost();
+    this.NetworkHandler();
+  }
+  async NetworkHandler() {
+    NetInfo.fetch()
+      .then(state => {
+        if (!state.isConnected) {
+          throw new Error('Currently offline.');
+        }
+      })
+      .catch(error => {
+        console.log('list error', error);
+        Alert.alert(
+          'Sorry, something went wrong. Please try again',
+          error.message,
+        );
+      });
   }
 
   handleLoadMore = () => {
@@ -66,17 +86,50 @@ import Card from '../components/Card';
     );
   };
 
+
   async fetchLastestPost() {
-    let page = this.state.page;
-    const response = await fetch(
-      `https://kriss.io/wp-json/wp/v2/posts?per_page=5&page=${page}`,
-    );
-    const post = await response.json();
-    this.setState({
-      lastestpost: page === 1 ? post : [...this.state.lastestpost, ...post],
-      isFetching: false,
-    });
+    try {
+      const networkState = await NetInfo.fetch();
+      if (!networkState.isConnected) {
+      const _cachedData = await AsyncStorage.getItem(cacheKey);
+      if (!_cachedData) {
+      throw new Error(
+      "You're currently offline and no local data was found.",
+      );
+    }
+    console.log('cachedData', _cachedData);
+        const cachedData = JSON.parse(_cachedData);
+
+        this.setState({
+          lastestpost: cachedData.post,
+          isFetching: false,
+        });
+      }
+      let page = this.state.page;
+      const response = await fetch(
+        `https://kriss.io/wp-json/wp/v2/posts?per_page=5&page=${page}`,
+      );
+      const post = await response.json();
+      await AsyncStorage.setItem(
+        cacheKey,
+        JSON.stringify({
+          post,
+        }),
+      );
+
+      this.setState({
+        lastestpost: page === 1 ? post : [...this.state.lastestpost, ...post],
+        isFetching: false,
+      });
+    } catch (error) {
+      console.log('geoFetch error', error);
+      return Promise.reject(error);
+    }
   }
+  bannerError = e => {
+    console.log('banner error: ');
+    console.log(e);
+  };
   render() {
     const {colors} = this.props.theme;
     return (
