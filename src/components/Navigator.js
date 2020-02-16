@@ -63,7 +63,7 @@ const DashboardTabNavigator = createBottomTabNavigator(
 
       return {
         headerTitle: routeName,
-        headerRight: <NetworkStatus />,
+        // headerRight: <NetworkStatus />,
       };
     },
   },
