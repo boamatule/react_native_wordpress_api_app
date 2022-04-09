@@ -20,7 +20,7 @@
     "firebase-functions": "^3.3.0",
     "firebase-tools": "^7.12.1",
     "install": "^0.13.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-dark-mode": "^0.2.2",
